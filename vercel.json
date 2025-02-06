@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "version": 2,
     "builds": [
       {
@@ -11,5 +12,10 @@
         "src": "/(.*)",
         "dest": "frontend/dist/index.html"
       }
+=======
+    "routes": [
+      { "handle": "filesystem" },
+      { "src": "/(.*)", "dest": "/index.html" }
+>>>>>>> abf96347b3c9b05f247037b1969db60c734f9787
     ]
   }
