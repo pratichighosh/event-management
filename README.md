@@ -82,7 +82,7 @@ VITE_APP_NAME=EventManagementPlatform
 
 ## 📞 Contact
 Your Name - Pratichi Ghosh
-mail- pratichighosh2003@gmail.com
+- pratichighosh2003@gmail.com
 
 Project Link: [https://github.com/pratichighosh/event-management](https://github.com/pratichighosh/event-management)
 
