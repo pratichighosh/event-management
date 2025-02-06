@@ -8,9 +8,9 @@ const LandingPage = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <div className="bg-gradient-to-r from-purple-600 to-blue-800 text-white">
         <div className="container mx-auto px-6 py-24 text-center">
-          <h1 className="text-5xl font-bold mb-6">
+          <h1 className="text-5xl font-bold-italic mb-6">
             Your Event Management Platform
           </h1>
           <p className="text-xl mb-12 max-w-2xl mx-auto">
@@ -75,7 +75,7 @@ const LandingPage = () => {
           {!user && (
             <Link
               to="/register"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-600 transition-colors"
             >
               Create Your Account
             </Link>
