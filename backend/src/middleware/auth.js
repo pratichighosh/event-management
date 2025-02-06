@@ -1,10 +1,8 @@
-// backend/src/middleware/auth.js
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export const protect = async (req, res, next) => {
   try {
-    // Get token from header
     const authHeader = req.headers.authorization;
     let token;
 
@@ -12,19 +10,16 @@ export const protect = async (req, res, next) => {
       token = authHeader.split(' ')[1];
     }
 
-    // Check if token exists
     if (!token) {
-      return res.status(401).json({ 
+      return res.status(401).json({
         success: false,
-        message: 'Access denied. No token provided' 
+        message: 'Access denied. No token provided'
       });
     }
 
     try {
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      // Check token expiration
+      
       if (decoded.exp < Date.now() / 1000) {
         return res.status(401).json({
           success: false,
@@ -32,12 +27,10 @@ export const protect = async (req, res, next) => {
         });
       }
 
-      // Get user from token
       const user = await User.findById(decoded.userId)
         .select('-password')
         .lean();
 
-      // Check if user exists
       if (!user) {
         return res.status(401).json({
           success: false,
@@ -45,7 +38,6 @@ export const protect = async (req, res, next) => {
         });
       }
 
-      // Check if user is active
       if (user.isActive === false) {
         return res.status(401).json({
           success: false,
@@ -53,10 +45,8 @@ export const protect = async (req, res, next) => {
         });
       }
 
-      // Add user to request object
       req.user = user;
       next();
-
     } catch (error) {
       if (error.name === 'JsonWebTokenError') {
         return res.status(401).json({
@@ -72,7 +62,7 @@ export const protect = async (req, res, next) => {
         });
       }
 
-      throw error; // Re-throw other errors
+      throw error;
     }
   } catch (error) {
     console.error('Auth middleware error:', error);
@@ -84,7 +74,6 @@ export const protect = async (req, res, next) => {
   }
 };
 
-// Optional: Add role-based authentication
 export const authorize = (...roles) => {
   return (req, res, next) => {
     if (!req.user || !roles.includes(req.user.role)) {
@@ -97,13 +86,11 @@ export const authorize = (...roles) => {
   };
 };
 
-// Optional: Add rate limiting
 export const rateLimit = {
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100
 };
 
-// Optional: Add request validation
 export const validateRequest = (schema) => {
   return (req, res, next) => {
     const { error } = schema.validate(req.body);

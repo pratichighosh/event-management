@@ -1,4 +1,4 @@
-// frontend/src/context/AuthContext.jsx
+// src/context/AuthContext.jsx
 import { createContext, useState, useEffect } from 'react';
 import api from '../services/api';
 
@@ -21,9 +21,7 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
       }
     } catch (error) {
-      console.error('Check user error:', error);
       localStorage.removeItem('token');
-      delete api.defaults.headers.common['Authorization'];
     } finally {
       setLoading(false);
     }
